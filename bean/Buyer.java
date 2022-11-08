@@ -34,9 +34,9 @@ public class Buyer extends User {
 
     @Override
     public String toString() {
-        return "Buyer{" +
-                "buyerId=" + buyerId +
-                ", productIds=" + productIds +
+        return "Buyer{  " +
+                "buyerId=  " + buyerId +
+                ", productIds=  " + productIds +
                 '}';
     }
 }

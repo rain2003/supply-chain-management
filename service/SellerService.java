@@ -3,12 +3,13 @@ package project.service;
 import project.bean.Application;
 import project.bean.Product;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SellerService {
 
     public List<Product> getAllProducts() {
-        return (List<Product>) Application.inventory.values();
+        return new ArrayList<>(Application.inventory.values());
     }
 
     public void sellProduct(Product product) {
