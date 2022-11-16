@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class MainRun {
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
 
         Application application = new Application();
 
@@ -64,10 +64,8 @@ public class MainRun {
                 System.out.println("Enter the rating that you want to give out of 5");
                 int ratting = sc.nextInt(); // get from user
                 System.out.println("thanks for your feedback");
-                //
                 buyerService.putRatting(productIdToPutRatting, ratting);
-                buyerService.putRatting(productIdToPutRatting, ratting);
-                //
+
                 System.out.println("if you want to view of the average rating of any product enter y");
                 char c1 = sc.next().charAt(0);
                 sc.nextLine();
@@ -81,9 +79,9 @@ public class MainRun {
                     System.out.println("if you want to buy more products please enter y");
                     char c2 = sc.next().charAt(0);
                     sc.nextLine();
-                    if(c2 == 'y'){
-                        continue;
-                    }else break;
+                    if(c2 != 'y') {
+                        break;
+                    }
                 }
             } else {
                 Seller seller = new Seller( name, phoneNo, gender, address, age);
@@ -99,7 +97,7 @@ public class MainRun {
                 System.out.println("Enter the number of products you want to add to this productId");
                 int quantity = sc.nextInt();
                 Product item = new Product(productName,quantity,price);
-                sellerService.sellProduct(item);
+                sellerService.sellProduct(item, seller.getSellerId());
                 System.out.println("successfully added the product in inventory");
                 System.out.println();
                 sellerService.increaseProductQty(item.getProductId(),item.getQuantity());
@@ -108,13 +106,23 @@ public class MainRun {
                 sc.nextLine();
                 if ( c1 == 'i'){
                     sellerService.getAllProducts().forEach(product -> System.out.println(product.toString()));
-                    System.out.println("if you want to leave enter y");
-                    char c2 = sc.next().charAt(0);
-                    if(c2 == 'y'){
-                        break;
-                    }else continue;
-                }else if (c1 == 'a'){
-                    continue;
+                }
+
+                System.out.println("If you want to view the ratting of any seller enter y");
+                char cr = sc.next().charAt(0);
+                sc.nextLine();
+                if (cr == 'y') {
+                    sellerService.getAllSellers().forEach(seller1 -> System.out.println(seller1.toString()));
+                    System.out.println("Enter the sellerId of whom you want to view rating");
+                    int sellerIdAvgRatting = sc.nextInt(); // get from user;
+                    sellerRating.calculateRating(sellerIdAvgRatting);
+                    System.out.println(Application.sellers.get(sellerIdAvgRatting).getAvgRating());
+                }
+
+                System.out.println("if you want to leave enter y");
+                char c2 = sc.next().charAt(0);
+                if(c2 == 'y'){
+                    break;
                 }
 
             }
